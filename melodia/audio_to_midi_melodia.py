@@ -8,8 +8,8 @@ import numpy as np
 from midiutil.MidiFile import MIDIFile
 from scipy.signal import medfilt
 import jams
-import __init__
 
+VERSION = '0.0.0'
 '''
 Extract the melody from an audio file and convert it to MIDI.
 
@@ -24,13 +24,13 @@ Note: Melodia can work pretty well and is the result of several years of
 research. The note segmentation/quantization code was hacked in about 30
 minutes. Proceed at your own risk... :)
 
-usage: audio_to_midi_melodia.py [-h] [--smooth SMOOTH]
+usage: melodia.py [-h] [--smooth SMOOTH]
                                 [--minduration MINDURATION] [--jams]
                                 infile outfile bpm
 
 
 Examples:
-python audio_to_midi_melodia.py --smooth 0.25 --minduration 0.1 --jams
+python melodia.py --smooth 0.25 --minduration 0.1 --jams
                                 ~/song.wav ~/song.mid 60
 '''
 
@@ -48,9 +48,9 @@ def save_jams(jamsfile, notes, track_duration, orig_filename):
                               duration=track_duration)
     midi_an.annotation_metadata = \
         jams.AnnotationMetadata(
-            data_source='audio_to_midi_melodia.py v%s' % __init__.__version__,
-            annotation_tools='audio_to_midi_melodia.py (https://github.com/'
-                             'justinsalamon/audio_to_midi_melodia)')
+            data_source='melodia.py v%s' % VERSION,
+            annotation_tools='melodia.py (https://github.com/'
+                             'justinsalamon/melodia)')
 
     # Add midi notes to the annotation record.
     for n in notes:
@@ -195,8 +195,7 @@ def audio_to_midi_melodia(infile, outfile, bpm, smooth=0.25, minduration=0.1,
     print("Conversion complete.")
 
 
-if __name__ == "__main__":
-
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("infile", help="Path to input audio file.")
     parser.add_argument("outfile", help="Path for saving output MIDI file.")
@@ -215,3 +214,7 @@ if __name__ == "__main__":
     audio_to_midi_melodia(args.infile, args.outfile, args.bpm,
                           smooth=args.smooth, minduration=args.minduration,
                           savejams=args.jams)
+
+
+if __name__ == "__main__":
+    main()

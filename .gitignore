@@ -1,3 +1,6 @@
+build/
+dist
+*egg*
 f0.npy
 train05.jams
 train05.mid
