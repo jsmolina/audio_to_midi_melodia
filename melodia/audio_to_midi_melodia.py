@@ -24,13 +24,13 @@ Note: Melodia can work pretty well and is the result of several years of
 research. The note segmentation/quantization code was hacked in about 30
 minutes. Proceed at your own risk... :)
 
-usage: melodia.py [-h] [--smooth SMOOTH]
+usage: audio_to_midi_melodia [-h] [--smooth SMOOTH]
                                 [--minduration MINDURATION] [--jams]
                                 infile outfile bpm
 
 
 Examples:
-python melodia.py --smooth 0.25 --minduration 0.1 --jams
+python audio_to_midi_melodia.py --smooth 0.25 --minduration 0.1 --jams
                                 ~/song.wav ~/song.mid 60
 '''
 
@@ -48,9 +48,9 @@ def save_jams(jamsfile, notes, track_duration, orig_filename):
                               duration=track_duration)
     midi_an.annotation_metadata = \
         jams.AnnotationMetadata(
-            data_source='melodia.py v%s' % VERSION,
-            annotation_tools='melodia.py (https://github.com/'
-                             'justinsalamon/melodia)')
+            data_source='audio_to_midi_melodia.py v%s' % VERSION,
+            annotation_tools='audio_to_midi_melodia.py (https://github.com/'
+                             'justinsalamon/audio_to_midi_melodia)')
 
     # Add midi notes to the annotation record.
     for n in notes:
